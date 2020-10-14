@@ -18,7 +18,7 @@ public class MainActivity extends AppCompatActivity {
     TextView screen;
     double number1, number2, number3;
     char operator;
-    boolean isCalculate  = false;
+    boolean isCalculate = false;
 
     DecimalFormat df = new DecimalFormat("#.######");
 
@@ -32,57 +32,82 @@ public class MainActivity extends AppCompatActivity {
         screen.setText("0");
     }
 
-    private void zeroCheck()
-    {
-        if(screen.getText().equals("0")){
+    private boolean textLengthCheck() {
+        if (screen.length() == 100){
+            showToast("숫자는 100자리를 넘을 수 없습니다.");
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
+
+    private void zeroCheck() {
+        if (screen.getText().equals("0")) {
             screen.setText("");
         }
     }
 
-    private void showToast(String message)
-    {
-        Toast myToast = Toast.makeText(this.getApplicationContext(),message, Toast.LENGTH_SHORT);
-        myToast.show();
+    private void showToast(String message) {
+        Toast.makeText(this.getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     public void ButtonClick(View view) {
         try {
             switch (view.getId()) {
                 case R.id.button1:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "1");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "1");
+                    }
                     break;
                 case R.id.button2:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "2");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "2");
+                    }
                     break;
                 case R.id.button3:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "3");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "3");
+                    }
                     break;
                 case R.id.button4:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "4");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "4");
+                    }
                     break;
                 case R.id.button5:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "5");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "5");
+                    }
                     break;
                 case R.id.button6:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "6");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "6");
+                    }
                     break;
                 case R.id.button7:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "7");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "7");
+                    }
                     break;
                 case R.id.button8:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "8");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "8");
+                    }
                     break;
                 case R.id.button9:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "9");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "9");
+                    }
                     break;
                 case R.id.button10:
                     if (!isCalculate) {
@@ -90,8 +115,7 @@ public class MainActivity extends AppCompatActivity {
                         operator = '+';
                         isCalculate = true;
                         screen.setText("0");
-                    }
-                    else{
+                    } else {
                         showToast("계산 종료 후 누르세요!");
                     }
 //                screen.setText(screen.getText() + "+");
@@ -102,15 +126,16 @@ public class MainActivity extends AppCompatActivity {
                         operator = '-';
                         isCalculate = true;
                         screen.setText("0");
-                    }
-                    else{
+                    } else {
                         showToast("계산 종료 후 누르세요!");
                     }
 //                screen.setText(screen.getText() + "-");
                     break;
                 case R.id.button12:
-                    zeroCheck();
-                    screen.setText(screen.getText() + "0");
+                    if (!textLengthCheck()) {
+                        zeroCheck();
+                        screen.setText(screen.getText() + "0");
+                    }
                     break;
                 case R.id.button13:
                     if (!isCalculate) {
@@ -118,8 +143,7 @@ public class MainActivity extends AppCompatActivity {
                         operator = '*';
                         isCalculate = true;
                         screen.setText("0");
-                    }
-                    else{
+                    } else {
                         showToast("계산 종료 후 누르세요!");
                     }
 //                screen.setText(screen.getText() + "*");
@@ -130,8 +154,7 @@ public class MainActivity extends AppCompatActivity {
                         operator = '/';
                         isCalculate = true;
                         screen.setText("0");
-                    }
-                    else{
+                    } else {
                         showToast("계산 종료 후 누르세요!");
                     }
 //                screen.setText(screen.getText() + "/");
@@ -139,7 +162,7 @@ public class MainActivity extends AppCompatActivity {
                 case R.id.button15:
                     if (screen.getText().length() != 0) {
                         screen.setText(screen.getText().subSequence(0, screen.getText().length() - 1));
-                        if(screen.length() == 0)screen.setText("0");
+                        if (screen.length() == 0) screen.setText("0");
                     }
                     break;
                 case R.id.button16:
@@ -159,27 +182,26 @@ public class MainActivity extends AppCompatActivity {
                                 screen.setText(df.format(number3));
                                 break;
                             case '/':
-                                if(number2 == 0){
+                                if (number2 == 0) {
                                     showToast("0으로 나눌 수 없습니다.");
                                     return;
-                                }
-                                else {
+                                } else {
                                     number3 = number1 / number2;
                                     screen.setText(df.format(number3));
                                 }
                                 break;
+                            default:
+                                showToast("끔찍한 오류");
+                                break;
                         }
                         isCalculate = false;
-                    }
-                    else{
+                    } else {
                         showToast("식을 입력 후 누르세요!");
                     }
                     //screen.setText(screen.getText() + "=");
                     break;
             }
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.e("ButtonClick", e.toString());
         }
     }
